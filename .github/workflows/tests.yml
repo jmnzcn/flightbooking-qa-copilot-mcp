@@ -1,23 +1,51 @@
+name: api-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
 jobs:
   tests-api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
+      - name: Start microservices (Docker Compose)
+        run: docker compose up -d --build
+
+      - name: Wait for /health on the 3 services
+        run: |
+          for port in 5001 5002 5003; do
+            for i in $(seq 1 30); do
+              curl -fs "http://localhost:$port/health" > /dev/null && break
+              sleep 2
+            done
+            curl -fs "http://localhost:$port/health"
+            echo
+          done
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - name: Install deps
-        run: pip install -r requirements.txt
+      - name: Install test deps
+        run: pip install -r requirements-test.txt
 
       - name: Run API tests
         run: pytest tests/api -q --junitxml=metrics/last_run.xml
 
       - name: Collect metrics
+        if: always()
         run: python tools/collect_test_metrics.py
 
+      - name: Service logs
+        if: failure()
+        run: docker compose logs
+
       - name: Upload JUnit report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: junit-report

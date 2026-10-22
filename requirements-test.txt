@@ -1,0 +1,4 @@
+# Dependencias mínimas para correr tests/api contra los microservicios.
+# Los tests de tests/api/test_ai_workflow_*.py se saltan si chromadb no está instalado.
+pytest==8.4.2
+requests==2.32.3

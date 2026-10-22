@@ -305,7 +305,7 @@ def test_usuario_end_to_end_reservation_payment_and_cancel(service_up):
       4) Listar reservas con GET /get_all_reservations y encontrar la creada.
       5) Crear pago vía POST /usuario/create_payment.
       6) Verificar GET /get_payment_by_id y /get_all_payments.
-      7) Cancelar pago y reserva vía DELETE /usuario/cancel_payment_and_reservation/<payment_id>.
+      7) Cancelar pago y reserva vía DELETE /cancel_payment_and_reservation/<payment_id>.
       8) Verificar que el pago ya no se encuentre.
     """
 
@@ -448,7 +448,7 @@ def test_usuario_end_to_end_reservation_payment_and_cancel(service_up):
 
     # 7) Cancelar pago y reserva
     r_cancel, body_cancel = _delete(
-        f"/usuario/cancel_payment_and_reservation/{payment_id}"
+        f"/cancel_payment_and_reservation/{payment_id}"
     )
     assert r_cancel.status_code == 200, (
         f"[USR_E2E] Error al cancelar pago+reserva: "

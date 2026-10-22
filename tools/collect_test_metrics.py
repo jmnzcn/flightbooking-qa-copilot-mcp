@@ -16,7 +16,8 @@ def parse_junit(xml_path: Path):
     root = tree.getroot()
 
     # Formato típico de JUnit de pytest: <testsuite ... tests="..." failures="..." errors="..." skipped="..." time="...">
-    suite = root
+    # pytest >= 5.1 lo envuelve en <testsuites>; sin esto se leían ceros.
+    suite = root.find("testsuite") if root.tag == "testsuites" else root
     tests = int(suite.attrib.get("tests", 0))
     failures = int(suite.attrib.get("failures", 0))
     errors = int(suite.attrib.get("errors", 0))
