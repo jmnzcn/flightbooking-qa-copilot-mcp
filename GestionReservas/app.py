@@ -843,7 +843,8 @@ def add_reservation():
         # 4) Generar reservation_code, issued_at, reservation_id
         validated['reservation_code'] = generar_codigo_reserva_unico()
         validated['issued_at']        = formatear_fecha_espanol(datetime.now())
-        validated['reservation_id']   = len(reservations) + 1
+        # max()+1 y no len()+1: tras un DELETE, len()+1 repetía un ID existente.
+        validated['reservation_id']   = max((r['reservation_id'] for r in reservations), default=0) + 1
 
         # 5) Marcar asiento como "Reservado"
         try:
