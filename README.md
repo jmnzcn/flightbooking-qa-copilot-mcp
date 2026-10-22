@@ -33,7 +33,7 @@ Métricas crudas en [`metrics/`](metrics/): tiempos de diseño, clasificación d
 
 ---
 
-## 🏗️ Arquitectura
+## 🧩 Arquitectura
 
 ```mermaid
 flowchart LR
