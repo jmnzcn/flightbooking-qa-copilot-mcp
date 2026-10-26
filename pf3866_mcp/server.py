@@ -23,7 +23,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Crear el servidor MCP
-mcp = FastMCP("pf3866-microservicios", stateless_http=True)
+mcp = FastMCP("pf3866-microservicios")
 
 # Mapear nombres lógicos de servicio a sus URLs locales
 BASE_URLS: dict[str, str] = {
@@ -950,4 +950,5 @@ if __name__ == "__main__":
         host="0.0.0.0",  # para exponerlo fuera de la máquina
         port=8000,
         path="/mcp",  # ruta HTTP del endpoint MCP
+        stateless_http=True,
     )
