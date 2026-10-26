@@ -10,6 +10,10 @@
 
 [English summary](#-english-summary) · [Resultados](#-resultados) · [Arquitectura](#-arquitectura) · [Servidor MCP](#-servidor-mcp-qa-copilot) · [Cómo correrlo](#-cómo-correrlo)
 
+![Demo: MCP Inspector con las 60 tools, salud del servicio, rutas de vuelo y una corrida de pytest](docs/demo.gif)
+
+<sub>El servidor MCP en [MCP Inspector](https://github.com/modelcontextprotocol/inspector), con los 3 microservicios corriendo en Docker: salud del servicio Usuario, rutas de vuelo reales y una corrida de pytest lanzada desde el propio MCP (×1,4).</sub>
+
 ---
 
 ## 📊 Resultados
@@ -111,7 +115,7 @@ Swagger de cada servicio: http://localhost:5001/apidocs · http://localhost:5002
 <summary>Levantar el servidor MCP</summary>
 
 ```bash
-pip install fastmcp requests pytest
+pip install "fastmcp>=2.10" requests pytest
 python pf3866_mcp/server.py
 ```
 
